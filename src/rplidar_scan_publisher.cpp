@@ -38,6 +38,7 @@
 #include "rplidar.h"
 
 #include <signal.h>
+#include <unistd.h>
 
 #ifndef _countof
 #define _countof(_Array) (int)(sizeof(_Array) / sizeof(_Array[0]))
@@ -289,6 +290,8 @@ public:
             RPlidarDriver::DisposeDriver(drv);
             return -1;
         }
+        RCLCPP_INFO(this->get_logger(),"So far so good !");
+
 
         stop_motor_service = this->create_service<std_srvs::srv::Empty>("stop_motor",  
                                 std::bind(&RPLidarScanPublisher::stop_motor,this,std::placeholders::_1,std::placeholders::_2));
@@ -296,6 +299,7 @@ public:
                                 std::bind(&RPLidarScanPublisher::start_motor,this,std::placeholders::_1,std::placeholders::_2));
 
         drv->startMotor();
+        sleep(1);
 
         RplidarScanMode current_scan_mode;
         if (scan_mode.empty()) {

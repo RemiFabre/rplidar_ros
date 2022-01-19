@@ -2182,6 +2182,7 @@ u_result RPlidarDriverImplCommon::setLidarSpinSpeed(_u16 rpm, _u32 timeout)
 
 u_result RPlidarDriverImplCommon::startMotor()
 {
+    printf("Called startMotor(). _isTofLidar=%d\n", _isTofLidar);
     if (!_isTofLidar) {
         if (_isSupportingMotorCtrl) { // RPLIDAR A2
             setMotorPWM(DEFAULT_MOTOR_PWM);
